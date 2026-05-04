@@ -40,8 +40,8 @@ chmod 700 "$home_dir/Downloads" "$home_dir/Documents"   "$home_dir/Work"
 welcome_file="/$home_dir/welcome.txt"
 
 #Här åter kopplar Välkomstfilen Namn på användare samt andra användare på systemet. 
-echo "Välkommen, $new_user" > "$welcome_file"
-echo "------------------------------------------" >> "$welcome_file"
+echo "Välkommen $new_user" > "$welcome_file"
+echo "--------------------------------" >> "$welcome_file"
 echo "Andra användare på detta system:" >> "$welcome_file"
 
 # Här listas alla användare ut med hjälp av awk för att sedan skrivas in i filen.
