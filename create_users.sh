@@ -14,20 +14,20 @@ if [ "$#" -eq 0 ]; then
 fi
 
 # Skapa ny anvädare efter argumentet.
-for new_user in "$@" ; do 
+for TEST_USER in "$@" ; do 
 
 # Bekräfta att användaren inte redan existerar på systemet. 
-if id "$new_user" &>/dev/null; then 
-echo "User '$new_user' finns redan. Skippa..." 
+if id "$TEST_USER" &>/dev/null; then 
+echo "User '$TEST_USER' finns redan. Skippa..." 
 continue #  Skippa till nästa användare i loopen.  
 fi
 
-echo "Creating environment för Användare: $new_user"    
+echo "Creating environment för Användare: $TEST_USER"    
 
 # Lägger till användarens ID i systemet.
-useradd -m -s /bin/bash "$new_user"
+useradd -m -s /bin/bash "$TEST_USER"
 #Skapar nytt hem åt användaren 
-home_dir="/home/$new_user"
+home_dir="/home/$TEST_USER"
 
 # Skapar Downloads samt Documents och Work i hem.
 mkdir -p "$home_dir/Downloads"  "$home_dir/Documents"   "$home_dir/Work"
@@ -40,20 +40,20 @@ chmod 700 "$home_dir/Downloads" "$home_dir/Documents"   "$home_dir/Work"
 welcome_file="/$home_dir/welcome.txt"
 
 #Här åter kopplar Välkomstfilen Namn på användare samt andra användare på systemet. 
-echo "Välkommen, $new_user" > "$welcome_file"
-echo "------------------------------------------" >> "$welcome_file"
+echo "Välkommen $TEST_USER" > "$welcome_file"
+echo "--------------------------------" >> "$welcome_file"
 echo "Andra användare på detta system:" >> "$welcome_file"
 
 # Här listas alla användare ut med hjälp av awk för att sedan skrivas in i filen.
-awk -F: -v user="$new_user" '$3 >= 1000 && $1 != user {print $1}' /etc/passwd >> "$welcome_file"
+awk -F: -v user="$TEST_USER" '$3 >= 1000 && $1 != user {print $1}' /etc/passwd >> "$welcome_file"
 
 #Behörigheter sätts så att enbart den avsedda användaren får tillgång till meddelandet. 
 chmod 600 "$welcome_file" 
 
 # Efter som skriptet körs som root måste vi ändra så att andvändaren får åtkomst till hemkatalogen.
-chown -R "$new_user:$new_user" "$home_dir"
+chown -R "$TEST_USER:$TEST_USER" "$home_dir"
 
-echo "Ny användare skapad '$new_user' och konfigurerad..."
+echo "Ny användare skapad '$TEST_USER' och konfigurerad..."
 echo "---------------------------------------------------"
 done 
 
