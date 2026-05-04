@@ -41,7 +41,11 @@ welcome_file="/$home_dir/welcome.txt"
 
 #Här åter kopplar Välkomstfilen Namn på användare samt andra användare på systemet. 
 <<<<<<< HEAD
+<<<<<<< HEAD
 echo "Välkommen $TEST_USER" > "$welcome_file"
+=======
+echo "Välkommen $new_user" > "$welcome_file"
+>>>>>>> 944aa225ba8b8b3b2a87886f3d8ccd17dae93d1d
 =======
 echo "Välkommen $new_user" > "$welcome_file"
 >>>>>>> 944aa225ba8b8b3b2a87886f3d8ccd17dae93d1d
