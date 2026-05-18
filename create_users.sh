@@ -55,10 +55,14 @@ echo "Ny användare skapad '$TEST_USER' och konfigurerad..."
 echo "---------------------------------------------------"
 done 
 
+# Ny for loop för att welcome_file ska ha listat alla användare i dynamisk lista.
 for TEST_USER in "$@"; do
-home_dir="/$home_dir/welcome.txt"
+
+home_dir="/home/$TEST_USER"
+welcome_file="/$home_dir/welcome.txt
 
 awk -F: -v user="$TEST_USER" '$3 >= 1000 && $1 != user {print $1}' /etc/passwd >> "$welcome_file"
 
-echo "Skriptet är färdigt" 
 done
+
+echo "Skriptet är färdigt" 
