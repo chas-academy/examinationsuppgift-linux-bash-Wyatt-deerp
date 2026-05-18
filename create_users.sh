@@ -59,10 +59,12 @@ done
 for TEST_USER in "$@"; do
 
 home_dir="/home/$TEST_USER"
-welcome_file="/$home_dir/welcome.txt
+welcome_file="/$home_dir/welcome.txt"
 
+# Här listas alla användare ut med hjälp av awk för att sedan skrivas in i filen.
 awk -F: -v user="$TEST_USER" '$3 >= 1000 && $1 != user {print $1}' /etc/passwd >> "$welcome_file"
 
 done
+
 
 echo "Skriptet är färdigt" 
