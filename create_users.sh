@@ -45,9 +45,6 @@ echo "'Välkommen $TEST_USER'" > "$welcome_file"
 echo "--------------------------------" >> "$welcome_file"
 echo "Andra användare på detta system:" >> "$welcome_file"
 
-# Här listas alla användare ut med hjälp av awk för att sedan skrivas in i filen.
-awk -F: -v user="$TEST_USER" '$3 >= 1000 && $1 != user {print $1}' /etc/passwd >> "$welcome_file"
-
 #Behörigheter sätts så att enbart den avsedda användaren får tillgång till meddelandet. 
 chmod 600 "$welcome_file" 
 
@@ -58,4 +55,10 @@ echo "Ny användare skapad '$TEST_USER' och konfigurerad..."
 echo "---------------------------------------------------"
 done 
 
+for TEST_USER in "$@"; do
+home_dir="/$home_dir/welcome.txt"
+
+awk -F: -v user="$TEST_USER" '$3 >= 1000 && $1 != user {print $1}' /etc/passwd >> "$welcome_file"
+
 echo "Skriptet är färdigt" 
+done
